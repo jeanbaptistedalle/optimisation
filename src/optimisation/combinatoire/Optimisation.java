@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import optimisation.combinatoire.Base;
+
+
 public class Optimisation {
 
 	public static String LISTE_BASE_PATH = "Scenarii/Liste Bases/Liste Bases";
