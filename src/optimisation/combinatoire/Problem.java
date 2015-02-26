@@ -20,11 +20,7 @@ public class Problem {
 	}
 
 	public Integer cout() {
-		Integer coutTotal = 0;
-		for (final Integer idBase : baseChoisies) {
-			coutTotal += Optimisation.getMapBases().get(idBase).getCoutBase();
-		}
-		return coutTotal;
+		return Optimisation.getCoutById(baseChoisies);
 	}
 
 	public boolean entrepriseTrouvees() {

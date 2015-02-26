@@ -64,8 +64,7 @@ public class Base {
 	}
 
 	public String toString() {
-		return idBase + ":" + coutBase; 
-//				+ ">" + listeEntreprise;
+		return idBase+"";
 	}
 
 	@Override
