@@ -189,6 +189,7 @@ public class Optimisation {
 					best = retour;
 				}
 			}
+			System.out.println(best);
 			return best;
 		}
 	}
@@ -286,7 +287,7 @@ public class Optimisation {
 		return mapBases.values() + "\n" + entreprises;
 	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		for (int i = 1; i < 4; i++) {
 			for (int j = 1; j < 4; j++) {
 				String[] args2 = { "" + i, "" + j };
@@ -296,7 +297,7 @@ public class Optimisation {
 		}
 	}
 
-	public static void main2(String[] args) {
+	public static void main(String[] args) {
 		if (args.length != 2) {
 			System.out
 					.println("Argument 1 : numéro de la liste des bases utilisée (compris entre 1 et 3)");
@@ -317,14 +318,13 @@ public class Optimisation {
 			System.out.println("Solution Glouton : aucune solution");
 		}
 
-		// final List<Base> solutionBruteForce = optimisation.solveBruteForce();
-		// if (solutionBruteForce != null && solutionBruteForce.size() > 0) {
-		// System.out.println("Solution Brute Force : " +
-		// solutionBruteForce
-		// + " pour un cout de " + Optimisation.getCout(solutionBruteForce));
-		// } else {
-		// System.out.println("Solution Brute Force : aucune solution");
-		// }
+		final List<Base> solutionBruteForce = optimisation.solveBruteForce();
+		if (solutionBruteForce != null && solutionBruteForce.size() > 0) {
+			System.out.println("Solution Brute Force : " + solutionBruteForce + " pour un cout de "
+					+ Optimisation.getCout(solutionBruteForce));
+		} else {
+			System.out.println("Solution Brute Force : aucune solution");
+		}
 
 		final List<Base> solutionBAndB = optimisation.solveBAndB();
 		if (solutionBAndB != null && solutionBAndB.size() > 0) {
