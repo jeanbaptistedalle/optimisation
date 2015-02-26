@@ -8,34 +8,34 @@ public class Base {
 	private Integer idBase;
 	private Integer coutBase;
 	private List<String> listeEntreprise;
-	
-	public Base(){
+
+	public Base() {
 		idBase = null;
 		coutBase = null;
 		listeEntreprise = new ArrayList<String>();
 	}
-	
-	public Base(final Integer idBase, final Integer coutBase, final List<String> listeEntreprise){
+
+	public Base(final Integer idBase, final Integer coutBase, final List<String> listeEntreprise) {
 		this.idBase = idBase;
 		this.coutBase = coutBase;
 		this.listeEntreprise = listeEntreprise;
 	}
-	
-	public boolean contains(final String nomEntreprise){
+
+	public boolean contains(final String nomEntreprise) {
 		return listeEntreprise.contains(nomEntreprise);
 	}
-	
-	public int countContains(final List<String> liste){
+
+	public int countContains(final List<String> liste) {
 		Integer count = 0;
-		for(String nom : liste){
-			if(contains(nom)){
+		for (String nom : liste) {
+			if (contains(nom)) {
 				count++;
 			}
 		}
 		return count;
 	}
-	
-	public void addEntreprise(final String nomEntreprise){
+
+	public void addEntreprise(final String nomEntreprise) {
 		listeEntreprise.add(nomEntreprise);
 	}
 
@@ -62,8 +62,34 @@ public class Base {
 	public void setListeEntreprise(List<String> listeEntreprise) {
 		this.listeEntreprise = listeEntreprise;
 	}
-	
-	public String toString(){
-		return idBase+":"+coutBase+">"+listeEntreprise;
+
+	public String toString() {
+		return idBase + ":" + coutBase; 
+//				+ ">" + listeEntreprise;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idBase == null) ? 0 : idBase.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Base other = (Base) obj;
+		if (idBase == null) {
+			if (other.idBase != null)
+				return false;
+		} else if (!idBase.equals(other.idBase))
+			return false;
+		return true;
 	}
 }
