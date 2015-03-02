@@ -10,40 +10,40 @@ import java.util.List;
 import java.util.Map;
 
 //Liste Bases 1 et Liste Ent 1
-//Solution aglo Glouton : [7, 13, 23] pour un cout de 99
-//Solution Branch and Bound : [10, 23] pour un cout de 74
+//Solution Glouton : [7, 13, 23] pour un cout de 99 trouvé en 6ms
+//Solution Branch and Bound : [10, 23] pour un cout de 74 trouvé en 80ms
 //
 //Liste Bases 1 et Liste Ent 2
-//Solution aglo Glouton : [2, 10] pour un cout de 57
-//Solution Branch and Bound : [2, 10] pour un cout de 57
+//Solution Glouton : [2, 10] pour un cout de 57 trouvé en 0ms
+//Solution Branch and Bound : [2, 10] pour un cout de 57 trouvé en 8ms
 //
 //Liste Bases 1 et Liste Ent 3
-//Solution aglo Glouton : [14, 7, 13, 19] pour un cout de 107
-//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107
+//Solution Glouton : [14, 7, 13, 19] pour un cout de 107 trouvé en 0ms
+//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107 trouvé en 65ms
 //
 //Liste Bases 2 et Liste Ent 1
-//Solution aglo Glouton : [7, 13, 23] pour un cout de 99
-//Solution Branch and Bound : [10, 23] pour un cout de 74
+//Solution Glouton : [7, 13, 23] pour un cout de 99 trouvé en 0ms
+//Solution Branch and Bound : [10, 23] pour un cout de 74 trouvé en 6ms
 //
 //Liste Bases 2 et Liste Ent 2
-//Solution aglo Glouton : [2, 10] pour un cout de 57
-//Solution Branch and Bound : [2, 10] pour un cout de 57
+//Solution Glouton : [2, 10] pour un cout de 57 trouvé en 0ms
+//Solution Branch and Bound : [2, 10] pour un cout de 57 trouvé en 1ms
 //
 //Liste Bases 2 et Liste Ent 3
-//Solution aglo Glouton : [14, 7, 13, 19] pour un cout de 107
-//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107
+//Solution Glouton : [14, 7, 13, 19] pour un cout de 107 trouvé en 0ms
+//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107 trouvé en 8ms
 //
 //Liste Bases 3 et Liste Ent 1
-//Solution aglo Glouton : [7, 13, 23] pour un cout de 99
-//Solution Branch and Bound : [10, 23] pour un cout de 74
+//Solution Glouton : [7, 13, 23] pour un cout de 99 trouvé en 1ms
+//Solution Branch and Bound : [10, 23] pour un cout de 74 trouvé en 6ms
 //
 //Liste Bases 3 et Liste Ent 2
-//Solution aglo Glouton : [2, 10] pour un cout de 57
-//Solution Branch and Bound : [2, 10] pour un cout de 57
+//Solution Glouton : [2, 10] pour un cout de 57 trouvé en 0ms
+//Solution Branch and Bound : [2, 10] pour un cout de 57 trouvé en 1ms
 //
 //Liste Bases 3 et Liste Ent 3
-//Solution aglo Glouton : [14, 7, 13, 19] pour un cout de 107
-//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107
+//Solution Glouton : [14, 7, 13, 19] pour un cout de 107 trouvé en 0ms
+//Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107 trouvé en 8ms
 public class Optimisation {
 
 	public static String LISTE_BASE_PATH = "Scenarii/Liste Bases/Liste Bases";
@@ -189,7 +189,6 @@ public class Optimisation {
 					best = retour;
 				}
 			}
-			System.out.println(best);
 			return best;
 		}
 	}
@@ -287,7 +286,7 @@ public class Optimisation {
 		return mapBases.values() + "\n" + entreprises;
 	}
 
-	public static void main2(String[] args) {
+	public static void main(String[] args) {
 		for (int i = 1; i < 4; i++) {
 			for (int j = 1; j < 4; j++) {
 				String[] args2 = { "" + i, "" + j };
@@ -297,7 +296,7 @@ public class Optimisation {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		if (args.length != 2) {
 			System.out
 					.println("Argument 1 : numéro de la liste des bases utilisée (compris entre 1 et 3)");
@@ -310,26 +309,45 @@ public class Optimisation {
 
 		System.out.println("Liste Bases " + args[0] + " et Liste Ent " + args[1]);
 
+		long startTimeGlout = System.currentTimeMillis();
 		final List<Base> solutionGlouton = optimisation.solveGlouton();
+		long stopTimeGlouton = System.currentTimeMillis();
+		long elapsedTimeGlouton = stopTimeGlouton - startTimeGlout;
 		if (solutionGlouton != null && solutionGlouton.size() > 0) {
 			System.out.println("Solution Glouton : " + solutionGlouton + " pour un cout de "
-					+ Optimisation.getCout(solutionGlouton));
+					+ Optimisation.getCout(solutionGlouton) + " trouvé en " + elapsedTimeGlouton
+					+ "ms");
 		} else {
 			System.out.println("Solution Glouton : aucune solution");
 		}
 
-		final List<Base> solutionBruteForce = optimisation.solveBruteForce();
-		if (solutionBruteForce != null && solutionBruteForce.size() > 0) {
-			System.out.println("Solution Brute Force : " + solutionBruteForce + " pour un cout de "
-					+ Optimisation.getCout(solutionBruteForce));
-		} else {
-			System.out.println("Solution Brute Force : aucune solution");
-		}
+		/*
+		 * L'algo Brute Force est trop long pour arriver à son terme, il n'est
+		 * donc pas lancé par défaut
+		 */
+		// long startTimeBruteForce = System.currentTimeMillis();
+		// final List<Base> solutionBruteForce = optimisation.solveBruteForce();
+		// long stopTimeBruteForce = System.currentTimeMillis();
+		// long elapsedTimeBruteForce = stopTimeBruteForce -
+		// startTimeBruteForce;
+		// if (solutionBruteForce != null && solutionBruteForce.size() > 0) {
+		// System.out.println("Solution Brute Force : " + solutionBruteForce +
+		// " pour un cout de "
+		// + Optimisation.getCout(solutionBruteForce) + " trouvé en " +
+		// elapsedTimeGlouton
+		// + "ms");
+		// } else {
+		// System.out.println("Solution Brute Force : aucune solution");
+		// }
 
+		long startTimeBAndB = System.currentTimeMillis();
 		final List<Base> solutionBAndB = optimisation.solveBAndB();
+		long stopTimeBAndB = System.currentTimeMillis();
+		long elapsedTimeBAndB = stopTimeBAndB - startTimeBAndB;
 		if (solutionBAndB != null && solutionBAndB.size() > 0) {
 			System.out.println("Solution Branch and Bound : " + solutionBAndB + " pour un cout de "
-					+ Optimisation.getCout(solutionBAndB));
+					+ Optimisation.getCout(solutionBAndB) + " trouvé en " + elapsedTimeBAndB
+					+ "ms");
 		} else {
 			System.out.println("Solution Branch and Bound : aucune solution");
 		}
