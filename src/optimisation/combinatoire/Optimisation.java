@@ -373,16 +373,6 @@ public class Optimisation {
 		return mapBases.values() + "\n" + entreprises;
 	}
 
-	public static void main2(String[] args) {
-		for (int i = 1; i < 4; i++) {
-			for (int j = 1; j < 4; j++) {
-				String[] args2 = { "" + i, "" + j };
-				main(args2);
-				System.out.println();
-			}
-		}
-	}
-
 	public static void main(String[] args) {
 		if (args.length != 2 && args.length != 3) {
 			System.out
