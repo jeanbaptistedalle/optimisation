@@ -12,31 +12,37 @@ import java.util.Map;
 //Liste Bases 1 et Liste Ent 1
 //Solution Glouton methode 1 : [16, 1] pour un cout de 140 trouvé en 2ms
 //Solution Glouton méthode 2 : [7, 13, 23] pour un cout de 99 trouvé en 10ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [10, 23] pour un cout de 74 trouvé en 90ms
 //
 //Liste Bases 1 et Liste Ent 2
 //Solution Glouton methode 1 : [2, 1] pour un cout de 113 trouvé en 1ms
 //Solution Glouton méthode 2 : [2, 10] pour un cout de 57 trouvé en 1ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [2, 10] pour un cout de 57 trouvé en 27ms
 //
 //Liste Bases 1 et Liste Ent 3
 //Solution Glouton methode 1 : [1, 2, 10] pour un cout de 144 trouvé en 1ms
 //Solution Glouton méthode 2 : [14, 7, 13, 19] pour un cout de 107 trouvé en 1ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107 trouvé en 121ms
 //
 //Liste Bases 2 et Liste Ent 1
 //Solution Glouton methode 1 : [16, 1] pour un cout de 140 trouvé en 1ms
 //Solution Glouton méthode 2 : [7, 13, 16] pour un cout de 109 trouvé en 12ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [10, 16] pour un cout de 84 trouvé en 78ms
 //
 //Liste Bases 2 et Liste Ent 2
 //Solution Glouton methode 1 : [2, 1] pour un cout de 113 trouvé en 1ms
 //Solution Glouton méthode 2 : [2, 10] pour un cout de 57 trouvé en 1ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [2, 10] pour un cout de 57 trouvé en 23ms
 //
 //Liste Bases 2 et Liste Ent 3
 //Solution Glouton methode 1 : [1, 2, 10] pour un cout de 144 trouvé en 1ms
 //Solution Glouton méthode 2 : [14, 7, 13, 19] pour un cout de 107 trouvé en 1ms
+//Solution Brute Force : Trop long pour arriver à terme
 //Solution Branch and Bound : [7, 13, 14, 19] pour un cout de 107 trouvé en 86ms
 //
 //Liste Bases 3 et Liste Ent 1
