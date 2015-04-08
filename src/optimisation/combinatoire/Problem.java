@@ -42,8 +42,13 @@ public class Problem {
 	public void setBaseChoisies(List<Integer> baseChoisies) {
 		this.baseChoisies = baseChoisies;
 	}
-	
-	public String toString(){
-		return entrepriseATrouver+"\n"+baseChoisies;
+
+	public String toString() {
+		return entrepriseATrouver + "\n" + baseChoisies;
 	}
+
+	public Integer coutOpt() {
+		return Optimisation.getCoutOptById(baseChoisies);
+	}
+
 }
