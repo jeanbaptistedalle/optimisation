@@ -76,17 +76,18 @@ public class Optimisation {
 	public Optimisation(final Integer iBase, final Integer iEntreprise) {
 
 		try {
-			final File listeBases = new File(LISTE_BASE_PATH + iBase + EXTENSION_TXT);
-			final File listeEntreprise = new File(LISTE_ENTREPRISE_PATH + iEntreprise
+			final File listeBases = new File(LISTE_BASE_PATH + iBase
 					+ EXTENSION_TXT);
+			final File listeEntreprise = new File(LISTE_ENTREPRISE_PATH
+					+ iEntreprise + EXTENSION_TXT);
 			BufferedReader inputListeBases = null;
 			BufferedReader inputEntreprise = null;
 			entreprises = new ArrayList<String>();
 
-			inputListeBases = new BufferedReader(new InputStreamReader(new FileInputStream(
-					listeBases)));
-			inputEntreprise = new BufferedReader(new InputStreamReader(new FileInputStream(
-					listeEntreprise)));
+			inputListeBases = new BufferedReader(new InputStreamReader(
+					new FileInputStream(listeBases)));
+			inputEntreprise = new BufferedReader(new InputStreamReader(
+					new FileInputStream(listeEntreprise)));
 
 			// permet de passer la ligne count
 			inputListeBases.readLine();
@@ -95,11 +96,13 @@ public class Optimisation {
 			while (line != null && !line.isEmpty()) {
 				final File baseFile = new File("Bases/" + line);
 				final Base base = new Base();
-				final Integer idBase = Integer.parseInt(line.substring(5, line.indexOf('.')) + "");
+				final Integer idBase = Integer.parseInt(line.substring(5,
+						line.indexOf('.'))
+						+ "");
 				base.setIdBase(idBase);
 
-				BufferedReader inputBases = new BufferedReader(new InputStreamReader(
-						new FileInputStream(baseFile)));
+				BufferedReader inputBases = new BufferedReader(
+						new InputStreamReader(new FileInputStream(baseFile)));
 				String lineBase = inputBases.readLine();
 				final Integer coutBase = Integer.parseInt(lineBase);
 				base.setCoutBase(coutBase);
@@ -145,8 +148,10 @@ public class Optimisation {
 			method = 1;
 		}
 		final List<Integer> retour = new ArrayList<Integer>();
-		final List<Integer> baseRestantes = new ArrayList<Integer>(mapBases.keySet());
-		final List<String> entrepriseAtrouver = new ArrayList<String>(entreprises);
+		final List<Integer> baseRestantes = new ArrayList<Integer>(
+				mapBases.keySet());
+		final List<String> entrepriseAtrouver = new ArrayList<String>(
+				entreprises);
 		while (!entrepriseAtrouver.isEmpty()) {
 			float bestCount = 0;
 			Base bestBase = null;
@@ -188,7 +193,8 @@ public class Optimisation {
 
 	public List<Base> solveBruteForce() {
 		final List<Integer> bases = new ArrayList<Integer>(mapBases.keySet());
-		final List<String> entrepriseAtrouver = new ArrayList<String>(entreprises);
+		final List<String> entrepriseAtrouver = new ArrayList<String>(
+				entreprises);
 		final Problem root = new Problem(entrepriseAtrouver);
 		final Problem solution = solveBruteForce(root, bases);
 		final List<Base> baseChoisies = new ArrayList<Base>();
@@ -202,20 +208,24 @@ public class Optimisation {
 		}
 	}
 
-	public Problem solveBruteForce(final Problem actual, final List<Integer> bases) {
+	public Problem solveBruteForce(final Problem actual,
+			final List<Integer> bases) {
 		if (actual.entrepriseTrouvees()) {
 			return actual;
 		} else {
 			int coutMax = Integer.MAX_VALUE;
 			Problem best = null;
 			for (final Integer base : bases) {
-				final List<Integer> baseTestee = new ArrayList<Integer>(actual.getBaseChoisies());
+				final List<Integer> baseTestee = new ArrayList<Integer>(
+						actual.getBaseChoisies());
 				baseTestee.add(base);
-				final List<Integer> baseRestantes = new ArrayList<Integer>(bases);
+				final List<Integer> baseRestantes = new ArrayList<Integer>(
+						bases);
 				baseRestantes.remove(base);
 				final List<String> entrepriseATrouver = new ArrayList<String>(
 						actual.getEntrepriseATrouver());
-				entrepriseATrouver.removeAll(mapBases.get(base).getListeEntreprise());
+				entrepriseATrouver.removeAll(mapBases.get(base)
+						.getListeEntreprise());
 
 				final Problem next = new Problem(entrepriseATrouver, baseTestee);
 				final Problem retour = solveBruteForce(next, baseRestantes);
@@ -230,7 +240,8 @@ public class Optimisation {
 	public List<Base> solveBAndB() {
 		bestCoutMin = Integer.MAX_VALUE;
 		final List<Integer> bases = new ArrayList<Integer>(mapBases.keySet());
-		final List<String> entrepriseAtrouver = new ArrayList<String>(entreprises);
+		final List<String> entrepriseAtrouver = new ArrayList<String>(
+				entreprises);
 		final Problem root = new Problem(entrepriseAtrouver);
 		final Problem solution = solveBAndB(root, bases, true);
 		final List<Base> baseChoisies = new ArrayList<Base>();
@@ -244,7 +255,8 @@ public class Optimisation {
 		}
 	}
 
-	public Problem solveBAndB(final Problem actual, final List<Integer> bases, final boolean first) {
+	public Problem solveBAndB(final Problem actual, final List<Integer> bases,
+			final boolean first) {
 		final Integer cout = actual.cout();
 		if (first || cout < bestCoutMin) {
 			if (actual.entrepriseTrouvees()) {
@@ -257,14 +269,18 @@ public class Optimisation {
 					final List<Integer> baseTestee = new ArrayList<Integer>(
 							actual.getBaseChoisies());
 					baseTestee.add(base);
-					final List<Integer> baseRestantes = new ArrayList<Integer>(bases);
+					final List<Integer> baseRestantes = new ArrayList<Integer>(
+							bases);
 					baseRestantes.remove(base);
 					final List<String> entrepriseATrouver = new ArrayList<String>(
 							actual.getEntrepriseATrouver());
-					entrepriseATrouver.removeAll(mapBases.get(base).getListeEntreprise());
+					entrepriseATrouver.removeAll(mapBases.get(base)
+							.getListeEntreprise());
 
-					final Problem next = new Problem(entrepriseATrouver, baseTestee);
-					final Problem retour = solveBAndB(next, baseRestantes, false);
+					final Problem next = new Problem(entrepriseATrouver,
+							baseTestee);
+					final Problem retour = solveBAndB(next, baseRestantes,
+							false);
 					if (retour != null && retour.cout() < coutMax) {
 						best = retour;
 					}
@@ -278,8 +294,10 @@ public class Optimisation {
 
 	public List<Base> solveBF() {
 		final List<Integer> idBases = new ArrayList<Integer>(mapBases.keySet());
-		final List<String> entrepriseAtrouver = new ArrayList<String>(entreprises);
-		final Problem solution = recurBF(entrepriseAtrouver, new ArrayList<Integer>(), idBases);
+		final List<String> entrepriseAtrouver = new ArrayList<String>(
+				entreprises);
+		final Problem solution = recurBF(entrepriseAtrouver,
+				new ArrayList<Integer>(), idBases);
 		final List<Base> baseChoisies = new ArrayList<Base>();
 		if (solution != null) {
 			for (final Integer base : solution.getBaseChoisies()) {
@@ -292,7 +310,8 @@ public class Optimisation {
 	}
 
 	public Problem recurBF(final List<String> paramEntreprises,
-			final List<Integer> paramIdBaseTeste, final List<Integer> paramIdBases) {
+			final List<Integer> paramIdBaseTeste,
+			final List<Integer> paramIdBases) {
 		if (paramEntreprises.size() == 0) {
 			return new Problem(paramEntreprises, paramIdBaseTeste);
 		} else {
@@ -309,9 +328,11 @@ public class Optimisation {
 				idBaseTeste.add(idBase);
 				idBaseRestante.remove(idBase);
 
-				entrepriseATrouver.removeAll(mapBases.get(idBase).getListeEntreprise());
+				entrepriseATrouver.removeAll(mapBases.get(idBase)
+						.getListeEntreprise());
 
-				final Problem retour = recurBF(entrepriseATrouver, idBaseTeste, idBaseRestante);
+				final Problem retour = recurBF(entrepriseATrouver, idBaseTeste,
+						idBaseRestante);
 				int coutRetour = retour.coutOpt();
 				if (retour != null && coutRetour < coutMax) {
 					if (best == null || best.coutOpt() > coutRetour) {
@@ -327,7 +348,8 @@ public class Optimisation {
 		if (listIdBase != null && listIdBase.size() > 0) {
 			int coutTotal = 0;
 			for (final Integer idBase : listIdBase) {
-				coutTotal += Optimisation.getMapBases().get(idBase).getCoutBase();
+				coutTotal += Optimisation.getMapBases().get(idBase)
+						.getCoutBase();
 			}
 			return coutTotal;
 		} else {
@@ -395,27 +417,31 @@ public class Optimisation {
 		try {
 			base = Integer.parseInt(args[0]);
 			entreprise = Integer.parseInt(args[1]);
-			algo = args[2];
+			if (args.length == 3) {
+				algo = args[2];
+			} else {
+				algo = "a";
+			}
 		} catch (final Exception e) {
 			throw new RuntimeException(e);
 		}
 		final Optimisation optimisation = new Optimisation(base, entreprise);
-		if (algo == null) {
-			algo = "a";
-		}
 		System.out.println(optimisation);
-		System.out.println("Liste Bases " + base + " et Liste Ent " + entreprise);
+		System.out.println("Liste Bases " + base + " et Liste Ent "
+				+ entreprise);
 		if (algo.equals("m") || algo.equals("a") || algo.equals("g1")) {
 			long startTimeGlout = System.currentTimeMillis();
 			final List<Base> solutionGlouton = optimisation.solveGlouton(1);
 			long stopTimeGlouton = System.currentTimeMillis();
 			long elapsedTimeGlouton = stopTimeGlouton - startTimeGlout;
 			if (solutionGlouton != null && solutionGlouton.size() > 0) {
-				System.out.println("Solution Glouton methode 1 : " + solutionGlouton + " pour un cout de "
+				System.out.println("Solution Glouton methode 1 : "
+						+ solutionGlouton + " pour un cout de "
 						+ Optimisation.getCout(solutionGlouton) + " trouvé en "
 						+ elapsedTimeGlouton + "ms");
 			} else {
-				System.out.println("Solution Glouton méthode 1 : aucune solution");
+				System.out
+						.println("Solution Glouton méthode 1 : aucune solution");
 			}
 		}
 
@@ -425,11 +451,13 @@ public class Optimisation {
 			long stopTimeGlouton = System.currentTimeMillis();
 			long elapsedTimeGlouton = stopTimeGlouton - startTimeGlout;
 			if (solutionGlouton != null && solutionGlouton.size() > 0) {
-				System.out.println("Solution Glouton méthode 2 : " + solutionGlouton + " pour un cout de "
+				System.out.println("Solution Glouton méthode 2 : "
+						+ solutionGlouton + " pour un cout de "
 						+ Optimisation.getCout(solutionGlouton) + " trouvé en "
 						+ elapsedTimeGlouton + "ms");
 			} else {
-				System.out.println("Solution Glouton méthode 2: aucune solution");
+				System.out
+						.println("Solution Glouton méthode 2: aucune solution");
 			}
 		}
 		if (algo.equals("a") || algo.equals("bf")) {
@@ -439,7 +467,8 @@ public class Optimisation {
 			long elapsedTimeBF = stopTimeBF - startTimeBF;
 			if (solutionBF != null && solutionBF.size() > 0) {
 				System.out.println("Solution Brute Force : " + solutionBF
-						+ " pour un cout de " + Optimisation.getCout(solutionBF) + " trouvé en "
+						+ " pour un cout de "
+						+ Optimisation.getCout(solutionBF) + " trouvé en "
 						+ elapsedTimeBF + "ms");
 			} else {
 				System.out.println("Solution Brute Force : aucune solution");
@@ -451,11 +480,13 @@ public class Optimisation {
 			long stopTimeBAndB = System.currentTimeMillis();
 			long elapsedTimeBAndB = stopTimeBAndB - startTimeBAndB;
 			if (solutionBAndB != null && solutionBAndB.size() > 0) {
-				System.out.println("Solution Branch and Bound : " + solutionBAndB
-						+ " pour un cout de " + Optimisation.getCout(solutionBAndB) + " trouvé en "
+				System.out.println("Solution Branch and Bound : "
+						+ solutionBAndB + " pour un cout de "
+						+ Optimisation.getCout(solutionBAndB) + " trouvé en "
 						+ elapsedTimeBAndB + "ms");
 			} else {
-				System.out.println("Solution Branch and Bound : aucune solution");
+				System.out
+						.println("Solution Branch and Bound : aucune solution");
 			}
 		}
 	}
