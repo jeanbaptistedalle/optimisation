@@ -1,0 +1,15 @@
+Auteurs: DALLE Jean-Baptiste, JAMET Jason
+
+Optimisation combinatoire 
+
+Compilation:
+	javac -d bin src/optimisation/combinatoire/*.java
+
+
+usage: 
+	java -cp bin optimisation.combinatoire.Optimisation <base> <entreprise> <algorithme>
+	
+	
+	base 			: 	numéro de la liste des bases utilisée (compris entre 1 et 3)
+	entreprise 		: 	numéro de la liste des entreprises utilisée (compris entre 1 et 3)
+	algorithme(obligatoire)	: 	méthode à lancer : g1 > gready méthode 1, g2 > gready méthode 2, bf > brute force, bb > branch and bound, a > all (par défaut), m > 					tous sauf brute force
